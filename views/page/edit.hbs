@@ -1,0 +1,102 @@
+<form action="/page/save" method="post" class="user" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    <input type="hidden" name="_id" value="{{page._id}}">
+    {{#if error}}
+    <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-5 col-md-5">
+            <div class="card bg-danger text-white shadow">
+                <div class="card-body">{{error}}</div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    {{#if success}}
+    <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-5 col-md-5">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body">{{success}}</div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input type="text" id="title" class="form-control form-control-user" name="title"
+                    placeholder="page sarlavhasi" value="{{page.title}}" required>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input type="text" id="slug" class="form-control form-control-user" name="slug" placeholder="url"
+                    value="{{page.slug}}" required>
+            </div>
+        </div>
+        <div class="col-lg-12 mb-3">
+            <textarea name="text" class="summernote">{{page.text}}"</textarea>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <select name="menu" >
+                    <option value="1">Menu-1</option>
+                    <option value="2">Menu-2</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label id="statusValue" data-value='{{page.status}}'>
+                    <input type="checkbox" checked name="status" id="status"  value="0">
+                    Status
+                </label>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-user btn-block">Saqlash</button>
+</form>
+
+<script>
+    let nameInput = document.getElementById('title')
+    let slugInput = document.getElementById('slug')
+
+    nameInput.addEventListener('input', (e) => {
+        let str = nameInput.value
+        str = str.split('.').join('')
+        slugInput.value = str.split(' ').join('-').toLowerCase()
+    })
+
+    let status = document.getElementById('status')
+    let statusValue = document.getElementById('statusValue')
+
+    if (statusValue.getAttribute('data-value')==0){
+        status.checked = true
+    } else {
+        status.checked = false
+    }
+</script>
+
+
+<!-- jQuery is required -->
+<script src="/js/jquery.js"></script>
+
+<!-- Without any framework -->
+<link rel="stylesheet" href="/css/summernote-lite.css" />
+<script src="/js/summernote-lite.js"></script>
+
+<script>
+    $('.summernote').summernote({
+        height: 600,
+        hint: {
+            mentions: ['jayden', 'sam', 'alvin', 'david'],
+            match: /\B@(\w*)$/,
+            search: function (keyword, callback) {
+                callback($.grep(this.mentions, function (item) {
+                    return item.indexOf(keyword) == 0;
+                }));
+            },
+            content: function (item) {
+                return '@' + item;
+            }
+        }
+    })
+</script>

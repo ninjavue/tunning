@@ -1,0 +1,129 @@
+ <div class="carousel_main">
+        <div class="container">
+            {{#if success}}
+                <div class="cardbox">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-3 col-lg-3 col-md-3">
+                            <div class="card bg-success text-white shadow">
+                                <div class="card-body">{{success}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+            <div class="row f-wrap">
+                <div class="col-xl-6">
+                    <div class="car_left">
+
+                        <ul id="imageGallery">
+                            {{#each ads.img}}
+                            <li data-thumb="/{{this}}" data-src="/{{this}}">
+                                <img src="/{{this}}" />
+                            </li>
+                            {{/each}}
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="car_right">
+                        <h1>{{ads.title}}</h1>
+                        <p><img src="/images/pen.png" alt=""> {{ads.title}}</p>
+                        <div class="descr_slide">
+                            <div class="pr_descr d-flex justify-content-between align-items-center">
+                                <h2>{{ads.price}} <span class="currency"
+                                                        data-value="{{ads.currency}}"></span><span class="dog">(дог.)
+                                </span></h2>
+                                <a onclick="addFav(event,'{{ads._id}}')" class="add_izb {{isFav}}">
+                                    <i class="far fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </a>
+                            </div> 
+                            <div class="butch">
+                                <p>
+                                    <img src="/images/icon1.png" alt="">{{ads.place}}
+                                </p>
+                                <p>
+                                    <img src="/images/clock.png" alt="">
+                                    Добавлено:
+                                    <span data-time="{{ads.createdAt}}" class="createdAt">{{ads.screatedAt}}
+                                    </span>
+                                </p>
+                                <p>
+                                    <img src="/images/glob.png" alt="">
+                                    <b>{{ads.userId.name}}</b>
+<!--                                    <a href="#">Все объявления пользователя</a>-->
+                                </p>
+                                <p><b>Просмотр: {{ads.views}}</b></p>
+                                <p><b>Описание товара:</b></p>
+                                <p class="ads_text">{{ads.text}}</p>
+                                <a href="#" class="number_new">Номер объявления: {{ads._id}}</a>
+                                <div class="desc_btm_link">
+                                    {{#if ads.phone}}
+                                        <a href="tel:{{ads.phone}}"><img src="/images/phone.png" alt="">{{ads.phone}}
+                                            <!--                                        <a href="#">Показать</a>-->
+                                        </a>
+                                    {{else}}
+                                        <a href="tel:{{ads.userId.phone}}"><img src="/images/phone.png" alt="">{{ads.userId
+                                        .phone}}
+                                            <!--                                        <a href="#">Показать</a>-->
+                                        </a>
+                                    {{/if}}
+
+                                    <a onclick="toggleMsg()" href="#msg" class="write_to_avtor"><img src="/images/mail
+                                    .png" alt="">Написать автору</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12" id="msg">
+                    <div class="message">
+                        {{#if isAuth}}
+
+                            <form action="/ads/sendmsg/{{ads._id}}" method="post">
+                                <input type="hidden" name="_csrf" value="{{csrf}}">
+                                <input type="hidden" name="to" value="{{ads.userId._id}}">
+                                <textarea name="msg" id="" placeholder="Напишите сообшение"></textarea>
+                                <button type="submit" class="write_to_avtor">Отправить</button>
+
+                            </form>
+                        {{else}}
+                            <a href="/auth/login">Авторизуйтесь для отправки сообщении</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <div class="similar_list">
+                <h3><span>Похожие объявления</span></h3>
+                {{#each others}}
+                <div class="item_prod">
+                    <a href="/ads/{{_id}}" class="img" style="background-image: url('/{{photo}}')"></a>
+                    <div class="text">
+                        <div class="prod_price">
+                            <p>{{price}} </p><span>сум/шт</span>
+                        </div>
+                        <a href="/ads/{{_id}}" class="title">{{title}}</a>
+                        <p class="two_text">{{text}}</p>
+                        <p class="company_name">Автор: <b>{{userId.name}}</b></p>
+                        <span class="adress_pr"><img src="/images/map_mar.png" alt="">{{place}}</span>
+                        <span class="adress_pr"><img src="/images/clock.png" alt=""><span data-time="{{createdAt}}" class="createdAt">{{createdAt}}</span></span>
+                        <a href="#" class="razd_star"><i class="fas fa-star"></i><i class="far fa-star"></i></a>
+                    </div>
+                </div>
+               {{/each}}
+            </div>
+        </div>
+    </div>
+
+
+ <script>
+
+     // Make a request using the Fetch API
+     function toggleMsg(){
+         document.querySelector('.message').classList.toggle('active')
+     }
+
+
+ </script>

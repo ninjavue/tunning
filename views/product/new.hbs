@@ -1,0 +1,127 @@
+<form action="/product/" method="post" class="user" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="text" class="form-control form-control-user" id="name" name="title" placeholder="Nomi" required>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="type" class="form-control form-control-user" id="slug" name="slug" placeholder="URL" required>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="number" class="form-control form-control-user" name="price" placeholder="Narhi" required>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="number" class="form-control form-control-user" name="sale" placeholder="Chegirma">
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <select name="categoryId" class="form-control">
+                    <option>Kategoriyani belgilang</option>
+                    {{#each category}}
+                        <option value="{{_id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="text" class="form-control" name="pimg" placeholder="Rasm url" required>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <p><b>Tasnifi</b></p>
+                <textarea name="detail" class="form-control form-control-user detailbox" placeholder="Detail"></textarea>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <p><b>Kafolat</b></p>
+                <textarea name="warranty" class="form-control form-control-user detailbox" placeholder="Detail"></textarea>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <p><b>Yetkazish</b></p>
+                <textarea name="custom" id="" class="form-control form-control-user detailbox" rows="10" placeholder="Custom"></textarea>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <p><b>Sozlamalar</b></p>
+                <textarea name="adjust" id="" class="form-control form-control-user detailbox" rows="10" placeholder="Adjust"></textarea>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <p><b>Qo'llab-quvvatlash</b></p>
+                <textarea name="care" id="" class="form-control form-control-user detailbox" rows="10" placeholder="Care"></textarea>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-check form-switch ps-0">
+                <input class="form-check-input ms-auto" name="status" value="0" type="checkbox" id="flexSwitchStatusDefault" checked>
+                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchStatusDefault">Tovar aktivmi?</label>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-check form-switch ps-0">
+                <input class="form-check-input ms-auto" name="isnew" value="0" type="checkbox" id="flexSwitchNewDefault" checked>
+                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchNewDefault">Tovar yangimi?</label>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-check form-switch ps-0">
+                <input class="form-check-input ms-auto" name="slider" value="1" type="checkbox" id="flexSwitchSliderDefault">
+                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchSliderDefault">Sliderga chiqsinmi?</label>
+            </div>
+        </div>
+    </div>
+    
+
+    <button type="submit" class="mt-3 btn btn-primary btn-user btn-block">Kiritish</button>
+</form>
+
+<script>
+    let nameInput = document.getElementById('name')
+    let slugInput = document.getElementById('slug')
+    
+    nameInput.addEventListener('input',(e)=>{
+        let str = nameInput.value
+        str = str.split('.').join('')
+        slugInput.value = str.split(' ').join('-').toLowerCase()
+    })
+</script>
+
+
+<!-- jQuery is required -->
+<script src="/js/jquery.js"></script>
+
+<!-- Without any framework -->
+<link rel="stylesheet" href="/css/summernote-lite.css" />
+<script src="/js/summernote-lite.js"></script>
+
+<script>
+    $('.detailbox').summernote({
+        height:300,
+  hint: {mentions: ['jayden', 'sam', 'alvin', 'david'],
+    match: /\B@(\w*)$/,
+    search: function (keyword, callback) {
+      callback($.grep(this.mentions, function (item) {
+        return item.indexOf(keyword) == 0;
+      }));
+    },
+    content: function (item) {
+      return '@' + item;
+    }    
+  }
+});
+</script>

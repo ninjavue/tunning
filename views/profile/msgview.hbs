@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="chat__title">{{msg.adsId.title}}</div>
+    <div class="chat">
+        <div class="chat__list" id="msg">
+
+            {{#each msg.msg}}
+                {{#if to}}
+                    <div class="chat__from">
+                        <div class="chat__who">Покупатель</div>
+                        <div class="chat__text">{{text}}</div>
+                        <div class="chat__date createdAt" data-time="{{date}}"></div>
+                    </div>
+                {{else}}
+                    <div class="chat__to data-date="{{date}}">
+                        <div class="chat__who">Вы</div>
+                        <div class="chat__text">{{text}}</div>
+                        <div class="chat__date createdAt" data-time="{{date}}"></div>
+                    </div>
+                {{/if}}
+            {{/each}}
+        </div>
+        <form action="/profile/msg" method="post">
+            <input type="hidden" name="_csrf" value="{{csrf}}">
+            <input type="hidden" name="_id" value="{{msg._id}}">
+            <textarea name="msg"  placeholder="Напишите сообщение"></textarea>
+            <p><button type="submit">Отправить</button></p>
+        </form>
+    </div>
+</div>
+
+<script>
+    let textarea = document.getElementById('msg');
+    console.log(textarea)
+    textarea.scrollTop = textarea.scrollHeight;
+</script>

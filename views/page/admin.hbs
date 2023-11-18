@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-6 col-xl-3">
+        <div class="card stat-widget">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">Обявление</h5>
+                    <h2>{{countAds.length}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card stat-widget">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">Пользователи</h5>
+                    <h2>{{users.length}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card stat-widget">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">Категории</h5>
+                    <h2>{{categories.length}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card stat-widget">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">Подкатегории</h5>
+                    <h2>{{subcategories.length}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="card table-widget">
+            <div class="card-body">
+                <h5 class="card-title">Последные обявление</h5>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Заголовка</th>
+                                <th scope="col">Местоположение</th>
+                                <th scope="col">Категория</th>
+                                <th scope="col">Добавлено</th>
+                                <th scope="col">Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each ads}}
+                            <tr>
+                                <th scope="row">{{title}}
+                                </th>
+                                <td>{{place}}</td>
+                                <td>{{category.name}}</td>
+                                <td>{{createdAt}}</td>
+                                <td>{{{status}}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

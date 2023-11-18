@@ -1,0 +1,144 @@
+<form action="/product/save" method="post" class="user" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    <input type="hidden" name="_id" value="{{product._id}}">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="text" class="form-control form-control-user" id="name" value="{{product.title}}" name="title" placeholder="Nomi" required>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="type" class="form-control form-control-user" id="slug" name="slug" placeholder="URL" value="{{product.slug}}" required>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="number" class="form-control form-control-user" name="price" value="{{product.price}}" placeholder="Narhi" required>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="number" class="form-control form-control-user" name="sale" value="{{product.sale}}" placeholder="Chegirma">
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <select name="categoryId" class="form-control" data-value='{{product.categoryId._id}}'>
+                    <option>Kategoriyani belgilang</option>
+                    {{#each category}}
+                        <option value="{{_id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="text" name="pimg" class="form-control" value="{{product.pimg}}" placeholder="Rasm url">
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <p><b>Tasnifi</b></p>
+                <textarea name="detail" class="form-control form-control-user detailbox" placeholder="Detail">{{{product.detail}}}</textarea>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <p><b>Kafolat</b></p>
+                <textarea name="warranty" class="form-control form-control-user detailbox" placeholder="Kafolat">{{{product.warranty}}}</textarea>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <p><b>Yetkazish</b></p>
+                <textarea name="custom" class="form-control form-control-user detailbox" placeholder="Kafolat">{{{product.custom}}}</textarea>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <p><b>Sozlamalar</b></p>
+                <textarea name="adjust" class="form-control form-control-user detailbox" placeholder="Sozlamalar">{{{product.adjust}}}</textarea>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <p><b>Qo'llab-quvvatlash</b></p>
+                <textarea name="care" class="form-control form-control-user detailbox" placeholder="Qo'llab-quvvatlash">{{{product.care}}}</textarea>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-check form-switch ps-0">
+                <input class="form-check-input ms-auto" name="status" value="0" data-value="{{product.status}}" type="checkbox" id="flexSwitchStatusDefault" checked>
+                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchStatusDefault">Tovar aktivmi?</label>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-check form-switch ps-0">
+                <input class="form-check-input ms-auto" name="isnew" value="0" type="checkbox" data-value="{{product.isnew}}" id="flexSwitchNewDefault" checked>
+                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchNewDefault">Tovar yangimi?</label>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-check form-switch ps-0">
+                <input class="form-check-input ms-auto" name="slider" value="1" type="checkbox" data-value="{{product.slider}}" id="flexSwitchSliderDefault">
+                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchSliderDefault">Sliderga chiqsinmi?</label>
+            </div>
+        </div>
+
+    </div>
+    <button type="submit" class="mt-3 btn btn-primary btn-user btn-block">Saqlash</button>
+</form>
+
+<script>
+    let nameInput = document.getElementById('name')
+    let slugInput = document.getElementById('slug')
+    
+    nameInput.addEventListener('input',(e)=>{
+        let str = nameInput.value
+        str = str.split('.').join('')
+        console.log(str)
+        slugInput.value = str.split(' ').join('-').toLowerCase()
+    })
+
+    let status = document.getElementById('flexSwitchStatusDefault')
+    let newCheck = document.getElementById('flexSwitchNewDefault')
+    let sliderCheck = document.getElementById('flexSwitchSliderDefault')
+
+    if (status.getAttribute('data-value')==0) status.checked = true
+    else status.checked = false
+    if (newCheck.getAttribute('data-value')==0) newCheck.checked = true
+    else newCheck.checked = false
+    if (sliderCheck.getAttribute('data-value')==1) sliderCheck.checked = true
+    else sliderCheck.checked = false
+
+    let catSelect = document.querySelector('select')
+    let catId = catSelect.getAttribute('data-value')
+    document.querySelector('option[value="'+catId+'"]').selected = true
+</script>
+
+
+
+<!-- jQuery is required -->
+<script src="/js/jquery.js"></script>
+
+<!-- Without any framework -->
+<link rel="stylesheet" href="/css/summernote-lite.css" />
+<script src="/js/summernote-lite.js"></script>
+
+<script>
+    $('.detailbox').summernote({
+        height:300,
+  hint: {mentions: ['jayden', 'sam', 'alvin', 'david'],
+    match: /\B@(\w*)$/,
+    search: function (keyword, callback) {
+      callback($.grep(this.mentions, function (item) {
+        return item.indexOf(keyword) == 0;
+      }));
+    },
+    content: function (item) {
+      return '@' + item;
+    }    
+  }
+});
+</script>

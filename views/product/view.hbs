@@ -1,0 +1,125 @@
+<div class="product__view">
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <img src="{{product.pimg}}" alt="{{product.title}} | {{product.price}}" class="img-full">
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <div class="d-flex">
+                <a class="btn btn-info mb-4" href="/product/edit/{{product._id}}">
+                    <i class="fas fa-pen mr-2"></i>
+                    Tahrirlash
+                </a>
+                <form action="/product/delete/" method="post" onSubmit="return confirm('Aniqmi?');" class="ml-3">
+                    <input type="hidden" name="_csrf" value="{{csrf}}">
+                    <input type="hidden" name="_id" value="{{product._id}}">
+                    <button class="btn btn-danger mb-4 mr-4">
+                        <i class="fas fa-trash mr-2"></i>
+                        O'chirish
+                    </button>
+                </form>
+            </div>
+            <div class="product__title">Kategoriya:</div>
+            <div class="product__value">{{product.categoryId.name}}</div>
+            <div class="product__title">Asl narhi:</div>
+            <div class="product__value">{{product.price}} so'm</div>
+            <div class="product__title">Chegirma:</div>
+            <div class="product__value">{{product.sale}} %</div>
+            <div class="product__title">Yangi narhi:</div>
+            <div class="product__value">{{product.newPrice}} so'm</div>
+            <div class="product__title">Turlari:</div>
+            <div class="product__value">{{product.colors}}</div>
+            <div class="product__title">Aktivligi:</div>
+            <div class="product__value" id="status" data-value='{{product.status}}'></div>
+            <div class="product__title">Yangiligi:</div>
+            <div class="product__value" id="isnew" data-value='{{product.isnew}}'></div>
+            <div class="product__title">Sliderga chiqadimi?:</div>
+            <div class="product__value" id="slider" data-value='{{product.slider}}'></div>
+            <div class="product__title">Baho:</div>
+            <div class="product__value">{{product.mark}}</div>
+
+            
+        </div>
+    </div>
+    <div class="product__text">
+        <h5>Mahsulot tasnifi</h5>
+        {{{product.detail}}}
+        <h5>Kafolat:</h5>
+        <div class="product__value">{{{product.warranty}}}</div>
+        <h5>Yetkazish:</h5>
+        <div class="product__value">{{{product.custom}}}</div>
+        <h5>Xarakteristikasi:</h5>
+        <div class="product__value">{{{product.adjust}}}</div>
+        <h5>Qo'llab-quvvatlash:</h5>
+        <div class="product__value">{{{product.care}}}</div>
+    </div>
+    <div class="product__comments">
+        <table class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Foydalanuvchi</th>
+                    <th>Matni</th>
+                    <th>Jo'natilgan vaqt</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {{#each product.comments}}
+                <tr>
+                    <td>{{@index}}</td>
+                    <td>{{who}}</td>
+                    <td>{{text}}</td>
+                    <td>{{createAt}}</td>
+                    <td>{{status}}</td>
+                    <td>
+                        <a href="/product/commentchan/{{@root.product._id}}/{{@index}}" class="btn btn-success mb-0 mr-2"
+                            data-toggle="tooltip" data-original-title="Edit user">
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <a href="/product/commentdel/{{@root.product._id}}/{{@index}}" class="btn btn-danger mb-0 ml-2"
+                            data-toggle="tooltip" data-original-title="Edit user">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    let isnew = document.getElementById('isnew')
+    if (isnew.getAttribute('data-value')==0){
+        isnew.textContent = 'Yangi'
+        isnew.classList.add('btn-success')
+        isnew.classList.add('badge')
+    } else {
+        isnew.textContent = 'Yangi emas'
+        isnew.classList.add('btn-warning')
+        isnew.classList.add('badge')
+    }
+    let status = document.getElementById('status')
+    if (status.getAttribute('data-value')==0){
+        status.textContent = 'Aktiv'
+        status.classList.add('btn-success')
+        status.classList.add('badge')
+    } else {
+        status.textContent = 'O`chirilgan'
+        status.classList.add('btn-warning')
+        status.classList.add('badge')
+    }
+    
+    let slider = document.getElementById('slider')
+    if (slider.getAttribute('data-value')==1){
+        slider.textContent = 'Aktiv'
+        slider.classList.add('btn-success')
+        slider.classList.add('badge')
+    } else {
+        slider.textContent = 'O`chirilgan'
+        slider.classList.add('btn-warning')
+        slider.classList.add('badge')
+    }
+</script>

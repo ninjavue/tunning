@@ -1,0 +1,41 @@
+<div class="container pt-5 pb-5">
+    <form action="/subcategory/" method="post" class="user">
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="form-group">
+                    <input type="text" id="name" class="form-control form-control-user" name="name" placeholder="Название подкатегории" required>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="form-group">
+                    <select name="category" class="form-control">
+                        {{#each category}}
+                            <option value="{{_id}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" checked name="status" value="0">
+                        Активный
+                    </label>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-user btn-block">Добавить</button>
+    </form>
+
+</div>
+
+<script>
+    let nameInput = document.getElementById('name')
+    let slugInput = document.getElementById('slug')
+
+    nameInput.addEventListener('input',(e)=>{
+        let str = nameInput.value
+        slugInput.value = str.split(' ').join('-').toLowerCase()
+    })
+</script>

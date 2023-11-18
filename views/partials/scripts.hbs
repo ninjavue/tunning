@@ -1,0 +1,30 @@
+<script src="/js/jquery.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/select2.min.js"></script>
+<script src="/js/cleave-phone.uz.js"></script>
+<script src="/js/cleave.min.js"></script>
+<script src="/js/jquery.ellipsis.js"></script>
+<script src="/js/all.min.js"></script>
+<script src="/js/lightslider.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
+<script>
+
+    $('#imageGallery').lightSlider({
+        gallery:true,
+        item:1,
+        loop: false,
+        thumbItem:6,
+        slideMargin:0,
+        enableDrag: true,
+        currentPagerPosition:'left',
+        onSliderLoad: function(el) {
+            el.lightGallery({
+                selector: '#imageGallery .lslide'
+            });
+        }
+    });
+
+
+</script>

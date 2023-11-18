@@ -1,0 +1,130 @@
+<div class="container">
+    <div class="cats">
+        {{#each category}}
+        <div class="cats_col">
+            <div class="item">
+                <a href="/category/{{_id}}" class="title_item" >
+                    <span class="bc_item" style="background-image: url('/{{img}}')">
+<!--                            <img src="{{img}}" alt="">-->
+                    </span>
+                    <div class="bc_text">{{name}}</div>
+                </a>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</div>
+<div class="it_work" style="display: none">
+    <div class="container">
+        <h2 class="title_md">Как работает торговая площадка?</h2>
+        <div class="row">
+            <div class="col-lg-4 d-flex align-items-center">
+                <div class="work_text_left">
+                    <h2>1</h2>
+                </div>
+                <div class="work_text_right d-flex flex-column justify-content-between">
+                    <h4>Добавьте свою компанию</h4>
+                    <div class="hov">
+                        <p class="no_hover">
+                            и вы легко сможете продавать их не только на местном рынке, но и экспортировать. Так как мы рекламируем ваши товары и услуги на весь мир
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-center">
+                <div class="work_text_left">
+                    <h2>2</h2>
+                </div>
+                <div class="work_text_right d-flex flex-column justify-content-between">
+                    <h4>Разместите ваши Товары и услуги</h4>
+                    <div class="hov">
+                        <p class="no_hover">
+                            и вы легко сможете продавать их не только на местном рынке, но и экспортировать. Так как мы рекламируем ваши товары и услуги на весь мир
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-flex align-items-center">
+                <div class="work_text_left">
+                    <h2>3</h2>
+                </div>
+                <div class="work_text_right d-flex flex-column justify-content-between">
+                    <h4>Закупайте Все что вы желаете.</h4>
+                    <div class="hov">
+                        <p class="no_hover">
+                            В разделе закупки/спросы вы можете закупать любой товар или услугу. Не вы будете искать товары, а покупатели сами найдут вас!
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="last_updates">
+    <div class="container">
+        <h2 class="title_md">Последние объявления</h2>
+        <div class="card_main">
+            {{#each ads}}
+            <div class="card">
+              <a href="/ads/{{_id}}" class="card_img_top" style="background-image: url('/{{photo}}')">
+
+              </a>
+              <div class="card_body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <a href="/ads/{{_id}}" class="card_title">{{price}}  <span class="currency"
+                                                                               data-value="{{currency}}"></span></a>
+                    <a onclick="addFav(event,'{{_id}}')" class="star_act"><i class="fas fa-star"></i><i class="far fa-star"></i></a>
+                </div>
+                <a href="/ads/{{_id}}" class="card-text">{{title}}</a>
+                <a href="/ads/{{_id}}" class="adress_pr"><img src="images/map_mar.png" alt="">{{place}}</a>
+              </div>
+            </div>
+            {{/each}}
+
+        </div>
+        <button onclick="getNext()" class="btn " id="getnext">Загрузить еще</button>
+    </div>
+</div>
+
+<script>
+    let skip = 16
+    let cardMain = document.querySelector('.card_main')
+    const getNext = () => {
+        skip += 8
+        console.log(`/ads/getnext/${skip}`)
+        fetch(`/ads/getnext/${skip}`)
+        .then(res => res.json())
+        .then(ads => {
+            if (ads.length<8) document.getElementById('getnext').style.display = 'none'
+            if (ads.length>0)
+                ads.forEach(ad => {
+                    cardMain.innerHTML += `
+                        <div class="card">
+                          <a href="/ads/${ad._id}" class="card_img_top" style="background-image: url('/${ad.img[0]}')">
+
+                          </a>
+                          <div class="card_body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <a href="/ads/${ad._id}" class="card_title">${parseInt(ad.price).toLocaleString('ru-RU')}  <span class="currency"
+                                                                                           data-value="${ad.currency}"> сум</span></a>
+                                <a onclick="addFav(event,'${ad._id}')" class="star_act"><i class="fas fa-star"></i><i class="far fa-star"></i></a>
+                            </div>
+                            <a href="/ads/${ad._id}" class="card-text">${ad.title}</a>
+                            <a href="/ads/${ad._id}" class="adress_pr"><img src="images/map_mar.png" alt="">${ad.place}</a>
+                          </div>
+                        </div>
+                    `
+                })
+
+            else {
+                document.getElementById('getnext').style.display = 'none'
+            }
+        })
+    }
+</script>

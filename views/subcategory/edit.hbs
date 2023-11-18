@@ -1,0 +1,87 @@
+<div class="container mt-3">
+
+
+    <form action="/subcategory/save" method="post" >
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <input type="hidden" name="_id" value="{{subcategory._id}}">
+        <h3>{{title}}</h3>
+        {{#if error}}
+            <div class="row justify-content-center">
+                <div class="col-xl-5 col-lg-5 col-md-5">
+                    <div class="card bg-danger text-white shadow">
+                        <div class="card-body">{{error}}</div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+        {{#if success}}
+            <div class="row justify-content-center">
+                <div class="col-xl-5 col-lg-5 col-md-5">
+                    <div class="card bg-success text-white shadow">
+                        <div class="card-body">{{success}}</div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+        <div class="row">
+
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <input type="text" id="name" class="form-control form-control-user" name="name" placeholder="Название подкатегории" value="{{subcategory.name}}" required>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <select name="category" id="category" class="form-control" data-id="{{subcategory.category}}">
+                            {{#each category}}
+                                <option value="{{_id}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label id="statusValue" data-value='{{subcategory.status}}'>
+                            <input type="checkbox" checked name="status" value="0">
+                            Активный
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <button type="submit" class="btn btn-primary btn-user btn-block">Saqlash</button>
+    </form>
+</div>
+<script>
+    let nameInput = document.getElementById('name')
+    let slugInput = document.getElementById('slug')
+    let category = document.getElementById('category')
+    category.value = category.getAttribute('data-id')
+    nameInput.addEventListener('input',(e)=>{
+        let str = nameInput.value
+        slugInput.value = str.split(' ').join('-').toLowerCase()
+    })
+
+    let status = document.getElementById('status')
+    let statusValue = document.getElementById('statusValue')
+
+    if (statusValue.getAttribute('data-value')==0){
+        status.checked = true
+    } else {
+        status.checked = false
+    }
+
+    let home = document.getElementById('home')
+    let homeValue = document.getElementById('homeValue')
+
+    if (homeValue.getAttribute('data-value')==1){
+        home.checked = true
+    } else {
+        home.checked = false
+    }
+
+
+</script>

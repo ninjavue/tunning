@@ -1,0 +1,25 @@
+<div class="page-sidebar">
+    <ul class="list-unstyled accordion-menu">
+        <li class="sidebar-title">
+            Главная
+        </li>
+        <li {{#if isAdmin}}class="active-page"{{/if}}>
+            <a href="/admin"><i data-feather="home"></i>Главная</a>
+        </li>
+        <li class="sidebar-title">
+            Управление
+        </li>
+        <li {{#if isCategory}}class="active-page"{{/if}}>
+            <a href="/category/"><i data-feather="layers"></i>Категории</a>
+        </li>
+        <li {{#if isProduct}}class="active-page"{{/if}}>
+            <a href="/product"><i data-feather="layers"></i>Продукты</a>
+        </li>
+        <li {{#if isFeedback}}class="active-page"{{/if}}>
+            <a href="/product/feedback"><i data-feather="user"></i>Заявка звонков</a>
+        </li>
+        <li {{#if isOrder}}class="active-page"{{/if}}>
+            <a href="/product/order"><i data-feather="user"></i>Заказы</a>
+        </li>
+    </ul>
+</div>

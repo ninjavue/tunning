@@ -1,0 +1,48 @@
+<div class="row justify-content-md-center">
+    <div class="col-md-12 col-lg-4">
+        <div class="card login-box-container">
+            <div class="card-body">
+                <div class="authent-text">
+                    <p>Добро пожаловать</p>
+                    <p>Введите свои данные для авторизации</p>
+                </div>
+                <form action="/auth/login" method="post">
+                    <input type="hidden" name="_csrf" value="{{csrf}}">
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="text" name="username" autocomplete="off"  class="form-control" id="floatingInput" placeholder="Логин">
+                            <label for="floatingInput">Логин</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Пароль">
+                            <label for="floatingPassword">Пароль</label>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-info m-b-xs">Авторизоваться</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{#if error}}
+
+    <div class="card bg-danger text-white shadow infocard">
+        <div class="card-body">
+            {{error}}
+        </div>
+    </div>
+
+{{/if}}
+{{#if success}}
+
+    <div class="card bg-success text-white shadow infocard">
+        <div class="card-body">
+            {{success}}
+        </div>
+    </div>
+
+{{/if}}

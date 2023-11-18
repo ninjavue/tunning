@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0 adminsign">
+                <h6>{{title}}</h6>
+                <a href="/settings/create" class="btn btn-primary">Yangi sozlama</a>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sozlama sarlavhasi
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Nomi
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Qiymati
+                                </th>
+                                <th
+                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Status</th>
+                                <th class="text-secondary opacity-7"></th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            {{#each settings}}
+                            <tr>
+                                <td class="d-flex pl-2" width='350px'>
+                                    <h6 class="mb-0 pl-2 text-sm">{{title}}</h6>
+                                </td>
+                                <td class="" width='20%'>
+                                    <h6 class="d-flex text-sm">{{key}}</h6>
+                                </td>
+                                <td class="" width='20%'>
+                                    <h6 class="d-flex text-sm">
+                                        {{{value}}}
+                                    </h6>
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    <a href="/settings/change/{{_id}}/{{status}}" class="badge badge-sm " data-value='{{status}}'></a>
+                                </td>
+                                <td class="align-middle text-right text-sm">
+                                    <a href="/settings/edit/{{_id}}" class="btn btn-warning mb-0 mr-2"
+                                        data-toggle="tooltip" data-original-title="Edit user">
+                                        Tahrirlash
+                                    </a>
+                                    <a href="/settings/delete/{{_id}}" class="btn btn-danger mb-0 ml-2"
+                                        data-toggle="tooltip" data-original-title="Edit user">
+                                        O'chirish
+                                    </a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    let badges = document.querySelectorAll('.badge')
+
+    badges.forEach(badge => {
+        let status = badge.getAttribute('data-value')
+        if (status == 1){
+            badge.classList.add('bg-gradient-success')
+            badge.textContent = 'Aktiv'
+        } else {
+            badge.classList.add('bg-gradient-danger')
+            badge.textContent = 'Noaktiv'
+
+        }
+    })
+
+</script>

@@ -1,0 +1,56 @@
+{{> profile}}
+    <div class="tab_section crid">
+            <div class="boder"></div>
+            <ul class="nav nav-tabs container othr">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#homes">Мои объявления  <span>{{ads.length}}</span></a>
+              </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane container active" id="homes">
+                    {{!-- <div class="link_us_aktiv">
+                        <a href="#" class="active">Активные <span>(3)</span></a>
+                        <a href="#">На <span>модерации</span></a>
+                        <a href="#">Неактивные <span>(1)</span></a>
+                    </div> --}}
+                    {{#each ads}}
+                    <div class="item_prod quant">
+                        <a href="/ads/{{_id}}" class="img" style="background-image: url('/{{img}}')">
+<!--                            <img src="/{{img}}" alt="" width="220">-->
+                        </a>
+                        <div class="text">
+                            <div class="prod_price">
+                                <p>{{price}} </p><span>сум/шт</span>
+                            </div>
+                            <a href="/ads/{{_id}}" class="title">{{title}}</a>
+                            <p>Дата публикации: <span data-time="{{createdAt}}" class="createdAt">{{createdAt}}</span></p>
+                            <p>Дата окончания: <span data-time="{{endAt}}" class="createdAt">{{endAt}}</span></p>
+<!--                            <div class="btn_a_back">-->
+<!--                                <a href="#">Просмотры объявления: <span>{{views}}</span></a>-->
+<!--                                <a href="#"> Просмотры телефона: <span>46</span></a>-->
+<!--                                <a href="#">В Избранном: <span>15</span></a>-->
+<!--                            </div>-->
+                        </div>
+                        <div class="user_settings">
+                            <a href="/ads/{{_id}}"><img src="/images/eye.png" alt="">Просмотреть</a>
+                            <a href="/ads/edit/{{_id}}"><img src="/images/repeat.png" alt="">Редактировать</a>
+                            <a href="/ads/change/{{_id}}/{{status}}"><img src="/images/barber.png" alt=""><span class="adsstatus" data-status="{{status}}"></span></a>
+
+
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+
+<script>
+    let ads = document.querySelectorAll('.adsstatus')
+    ads.forEach(ad => {
+        if (ad.getAttribute('data-status')==0){
+            ad.textContent = 'Активировать'
+        } else {
+            ad.textContent = 'Деактивировать'
+        }
+    })
+</script>

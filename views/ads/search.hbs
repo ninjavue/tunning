@@ -1,0 +1,72 @@
+<div class="future lin">
+    <div class="container">
+        <div class="filt">
+            <div class="dropdown sel">
+
+                {{title}}
+            </div>
+            <div class="filter">
+                <div class="d-flex">
+
+                    <h4 class="filt_title">Категории</h4>
+                    <div class="category d-flex flex-wrap">
+<!--                        <a href="/category/" class="active">Все объявления</a>-->
+                        {{#each category}}
+                            <a href="/category/{{_id}}">{{name}}</a>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab_section">
+<!--            <div class="boder"></div>-->
+
+            <div class="tab-content">
+                <div class="tab-pane container active" id="home">
+                    {{#each ads}}
+                        <div class="item_prod">
+                            <a href="/ads/{{_id}}" class="img" style="background-image: url('/{{img}}')">
+                                <!--                        <img src="/{{img}}" alt="">-->
+                            </a>
+                            <div class="text">
+                                <div class="prod_price">
+                                    <p>{{price}} </p><span>сум/шт</span>
+                                </div>
+                                <a href="/ads/{{_id}}" class="title">{{title}}</a>
+                                <p class="two_text">{{text}}</p>
+                                <p class="company_name">Компания: <b>{{userId.name}}</b></p>
+                                <span class="adress_pr"><img src="/images/map_mar.png" alt="">{{place}}</span>
+                                <span class="adress_pr"><img src="/images/clock.png" alt="">Вчера {{createdAt}}</span>
+                                <a onclick="addFav(event,'{{_id}}')" class="razd_star"><i class="fas fa-star"></i><i class="far
+                        fa-star"></i></a>
+                            </div>
+                        </div>
+                    {{/each}}
+
+                    {{!-- <div class="pagination clr">
+                        <a href="#"><i class="fa fa-angle-double-left"></i> Назад</a>
+                        <a href="#">1</a>
+                        <a href="#" class="active">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">Следующая <i class="fa fa-angle-double-right"></i></a>
+                    </div> --}}
+                </div>
+                {{!-- <div class="tab-pane container fade" id="menu1">..cxvxcvxcvcvxvxv.</div>
+                <div class="tab-pane container fade" id="menu2">..sdvsdvzsdv.</div>
+                <div class="tab-pane container fade" id="menu3">..sdvsdvzsdv.</div> --}}
+            </div>
+        </div>
+    </div>
+</div>
+<form name="addfav" method="post" style="display: none">
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    <input type="hidden" name="_id" id="addFavId">
+</form>
+<script>
+
+
+
+</script>

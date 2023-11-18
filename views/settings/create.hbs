@@ -1,0 +1,53 @@
+<form action="/settings/" method="post" class="user" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    {{#if error}}
+    <div class="row justify-content-center mb-3">
+        <div class="col-xl-5 col-lg-5 col-md-5">
+        <div class="card bg-danger text-white shadow">
+            <div class="card-body">{{error}}</div>
+        </div>
+        </div>
+    </div>
+    {{/if}}
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="text" id="title" class="form-control form-control-user" name="title" placeholder="Sozlama sarlavhasi" required>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="text" id="key" class="form-control form-control-user" name="key" placeholder="Sozlama nomi(takrorlanmas)" required>
+            </div>
+        </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input type="text" id="value" class="form-control form-control-user" name="value" placeholder="Sozlama qiymati" required>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" checked name="status" value="1">
+                    Status
+                </label>
+            </div>
+        </div>
+        
+        
+    </div>
+    <button type="submit" class="btn btn-primary btn-user btn-block">Kiritish</button>
+</form>
+
+<script>
+    let nameInput = document.getElementById('title')
+    let slugInput = document.getElementById('slug')
+    
+    nameInput.addEventListener('input',(e)=>{
+        let str = nameInput.value
+         str = str.split('.').join('')
+        slugInput.value = str.split(' ').join('-').toLowerCase()
+    })
+</script>

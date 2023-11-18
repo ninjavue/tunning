@@ -1,0 +1,109 @@
+   <div class="future other reg">
+        <div class="container">
+            <div class="registr_bl">
+                <ul>
+                    <li class="active"><a href="#">Авторизация</a></li>
+                    <li><a href="#">Регистрация</a></li>
+                </ul>
+                <div class="main_tab">
+                    <div id="avt" class="tab_item active">
+                        <div class="overlay"></div>
+                       <form action="/auth/login" method="post">
+                        <input type="hidden" name="_csrf" value="{{csrf}}">
+                           <div class="form_group">
+                               <label for="#">Номер телефон</label>
+                               <input type="number" name="email" placeholder="">
+                           </div>
+                           <div class="form_group pos">
+                               <label for="#">Пароль</label>
+                               <input type="password" id="logreg" name="password" placeholder="">
+                               <span onclick="togglePass('logreg')" class="togglepass">
+                                    <img src="/images/eye.png" alt="">
+                                </span>
+                           </div>
+                           <button type="submit">Войти</button> 
+<!--                           <a href="#" class="remem_pass">Забыли пароль?</a>  -->
+                       </form>
+                    </div>
+                    <div id="reg" class="tab_item ">
+                        <div class="overlay"></div>
+                        <form action="/auth/reg" method="post" onsubmit="regCheck()" name="regform">
+                           <input type="hidden" name="_csrf" value="{{csrf}}">
+                            <div class="form_group">
+                               <label for="#">Ваше имя / Название компании</label>
+                               <input type="text" name="name" required placeholder="">
+                            </div>
+                            <div class="form_group">
+                                <label for="#">Номер телефона</label>
+                                <input type="number" class="tel" name="phone" required placeholder="">
+                            </div>
+
+                            <div class="form_group pos">
+                               <label for="#">Пароль</label>
+                               <input type="password" name="password" required id="regpas">
+                                <span onclick="togglePass('regpas')" class="togglepass">
+                                    <img src="/images/eye.png" alt="">
+                                </span>
+                            </div>
+<!--                            <div class="form_group">-->
+<!--                                <label for="#">Электронный адрес</label>-->
+<!--                                <input type="email" name="email" placeholder="eleery@gmail.com">-->
+<!--                            </div>-->
+                            <div class="check">
+                                <input type="checkbox" id="aser" name="check" style="display: none;">
+                                <label for="aser" class="check_form">
+                                    Согласен с условиями <a href="#" target="_blank">публичной оферты</a>
+                                </label>
+                                <div class="info">Необходимо подтвердить ваше согласие</div>
+                            </div>
+                           <button type="submit">Войти</button> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{#if error}}
+<div class="row justify-content-center">
+   <div class="col-xl-5 col-lg-5 col-md-5">
+      <div class="card bg-danger text-white shadow">
+         <div class="card-body">
+            {{error}}
+         </div>
+      </div>
+   </div>
+</div>
+{{/if}}
+{{#if success}}
+<div class="row justify-content-center">
+   <div class="col-xl-5 col-lg-5 col-md-5">
+      <div class="card bg-success text-white shadow">
+         <div class="card-body">
+            {{success}}
+         </div>
+      </div>
+   </div>
+</div>
+{{/if}}
+
+   <script>
+       let regform = document.forms.regform
+       let check = document.getElementById('aser')
+       let info = document.querySelector('.check .info')
+       info.style.display = 'none'
+       regform.addEventListener('submit',(e)=>{
+           e.preventDefault()
+            if (!check.checked) {
+                info.style.display = 'block'
+                return false
+            } else {
+                regform.submit()
+            }
+       })
+
+       function togglePass(id){
+           let pinput = document.getElementById(id)
+           if (pinput.getAttribute('type') == 'password') pinput.setAttribute('type','text')
+            else pinput.setAttribute('type','password')
+       }
+   </script>

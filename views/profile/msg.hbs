@@ -1,0 +1,81 @@
+{{> profile}}
+<div class="tab_section crid">
+    <div class="boder"></div>
+    <ul class="nav nav-tabs container othr">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#homes">Отправлено  <span>{{toMsg.length}}</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu1s">Принято   <span>{{fromMsg.length}}</span></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane container active" id="homes">
+            <div class="mess_to">
+                <div><p>Действия</p></div>
+                <div><p>Пользователь</p></div>
+                <div><p>Объявление</p></div>
+                <div><p>Дата</p></div>
+            </div>
+            {{#each toMsg}}
+                <div class="mess_bottom">
+                    <div class="keys">
+                        <div>
+                            <input type="checkbox" id="sew">
+                            <label for="sew"></label>
+                        </div>
+                        <div>
+                            <a href="/profile/msg/{{_id}}"><i class="fas fa-eye"></i></a>
+                        </div>
+                        <div>
+                            <a href="/profile/msg/delete/{{_id}}" onclick="if (confirm('Вы уверены что хотите удалить чат?')){return true;}else{event.stopPropagation(); event.preventDefault();};">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div><h3>{{from.name}}</h3></div>
+                    <div>
+                        <h5><a href="/profile/msg/{{_id}}">{{adsId.title}}</a></h5>
+                    </div>
+                    <div class="nigh">
+                        <p data-time="{{createdAt}}" class="createdAt">{{createdAt}}</p>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+        <div class="tab-pane container fade" id="menu1s">
+            <div class="mess_to">
+                <div><p>Действия</p></div>
+                <div><p>Пользователь</p></div>
+                <div><p>Объявление</p></div>
+                <div><p>Дата</p></div>
+            </div>
+            {{#each fromMsg}}
+                <div class="mess_bottom">
+                    <div class="keys">
+                        <div>
+                            <input type="checkbox" id="sew">
+                            <label for="sew"></label>
+                        </div>
+                        <div>
+                            <a href="/profile/msg/{{_id}}"><i class="fas fa-eye"></i></a>
+                        </div>
+                        <div>
+                            <a href="/profile/msg/delete/{{_id}}" onclick="if (confirm('Вы уверены что хотите удалить чат?')){return true;}else{event.stopPropagation(); event.preventDefault();};" >
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div><h3>{{from.name}}</h3></div>
+                    <div>
+                        <h5><a href="/profile/msg/{{_id}}">{{adsId.title}}</a></h5>
+                    </div>
+                    <div class="nigh">
+                        <p>Вчера, 22:31</p>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+
+    </div>
+</div>

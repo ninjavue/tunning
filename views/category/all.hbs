@@ -1,0 +1,18 @@
+<div class="container">
+        <h1 class="mt-5">Все категории</h1>
+        <div class="cats">
+            {{#each category}}
+            <div class="cats_col">
+                <div class="item">
+                    <a href="/category/{{_id}}" class="title_item" style="background-image: url('/{{img}}')">
+                        <span class="bc_item">
+<!--                            <img src="/{{img}}" alt="">-->
+                        </span>
+                        <div class="bc_text">{{name}}</div>
+                    </a>
+                </div>
+            </div>
+            {{/each}}
+
+        </div>
+    </div>

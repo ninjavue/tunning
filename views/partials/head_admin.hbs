@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/font/stylesheet.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/select2.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/media.css">
+    <title>{{title}}</title>
+</head>
+    <header class="mb-3">
+        <div class="container">
+                <a href="/" class="logo">
+                    LOGO
+                </a>
+            <div class="d-flex align-items-center justify-content-between mob_menu">
+                <ul class="nav">
+                    <li class="active"><a href="/ads/">Пользователи</a></li>
+                    <li><a href="#">Обявление</a></li>
+                    <li><a href="/category">Категории</a></li>
+                </ul>
+                <a href="/ads/create" class="add_advert"><img src="/images/plus_circle.png" alt="">Добавить объявление</a>
+                <div class="authreg">
+                    {{#if isAuth}}
+                    <a href="/profile">{{user.name}}</a>
+                    {{else}}
+                    <a href="/auth/login" class="auth">Вход</a> /
+                    <a href="/auth/reg" class="reg">Регистрация</a>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>

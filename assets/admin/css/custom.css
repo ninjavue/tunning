@@ -1,0 +1,13 @@
+/* Write your custom CSS here */
+
+.text-right {
+    text-align: right;
+}
+.dataTables_filter label,
+.dataTables_length label{
+    display: flex;
+    align-items: center;
+}
+.dataTables_wrapper{
+    margin-top: 30px;
+}

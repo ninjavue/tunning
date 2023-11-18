@@ -1,0 +1,258 @@
+{{> profile}}
+<div class="placing">
+        <div class="container">
+            <h1>Размещмение товара или услуги</h1>
+            <form action="/ads/" name="newad" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+                <input type="hidden" name="userId" value="{{user._id}}">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 top_form">
+                    <div class="form_group d-flex justify-content-between">
+                        <label for="">Выберите категорию <span>*</span></label>
+                        <select name="categoryId" onchange="getcateg(event.target.value)" id=""  data-toggle="tooltip" data-placement="right" title="Информационное сообщение с подсказкой будет выводится во всплывающем блоке типа tooltip. И поможет пользователю сориентироваться с полями.">
+                            <option value=""></option>
+                            {{#each category}}
+                                <option value="{{_id}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form_group d-flex justify-content-between">
+                        <label for="">Подкатегория <span>*</span></label>
+                        <select name="subcategory" id="subcategory">
+
+                        </select>
+                    </div>
+                    <div class="form_group d-flex justify-content-between">
+                        <label for="">Город или Регион <span>*</span></label>
+                        <select name="place">
+                            <option value="город Ташкент">город Ташкент</option>
+                            <option value="Андижанская область">Андижанская область</option>
+                            <option value="Бухарская область">Бухарская область</option>
+                            <option value="Джизакская область">Джизакская область</option>
+                            <option value="Каракалпакстан">Каракалпакстан</option>
+                            <option value="Кашкадарьинская область">Кашкадарьинская область</option>
+                            <option value="Навоийская область">Навоийская область</option>
+                            <option value="Наманганская область">Наманганская область</option>
+                            <option value="Самаркандская область">Самаркандская область</option>
+                            <option value="Сурхандарьинская област">Сурхандарьинская область</option>
+                            <option value="Сырдарьинская область">Сырдарьинская область</option>
+                            <option value="Ташкентская область">Ташкентская область</option>
+                            <option value="Ферганская область">Ферганская область</option>
+                            <option value="Хорезмская область">Хорезмская область</option>
+                        </select>
+                    </div>
+
+
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form_group">
+                        <label for="">Заголовок объявления <span>*</span></label>
+                        <input type="text" name="title" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6" id="statefield" style="display: none">
+                            <div class="form_group">
+                                <label for="">Состояние</label>
+                                <select name="state" id="">
+                                    <option value="0">Выбрать </option>
+                                    <option value="1">Новый</option>
+                                    <option value="1">Б\У</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="form_group">
+                                <label for="">Частное лицо/Бизнес</label>
+                                <select name="seller" id="">
+                                    <option value="0">Частное лицо</option>
+                                    <option value="1">Бизнес</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="form_group">
+                                <label for="">Наличие</label>
+                                <select name="stock" id="">
+                                    <option value="0">Есть в наличие </option>
+                                    <option value="1">Нет в наличие</option>
+                                    <option value="2">На заказ</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="form_group">
+                                <label for="">Стоимость</label>
+                                <input type="text" name='price' id="currency-mask" value="">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="form_group">
+                                <label class="hide_text">hide_text</label>
+                                <select name="currency" id="">
+                                    <option value="0">Сум</option>
+                                    <option value="1">Доллар</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form_group dogovor">
+                                <input type="checkbox" name="sale" id="dfgt" value="1">
+                                <label for="dfgt">Договорная</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form_group">
+                        <label for="">Описание <span>*</span></label>
+                        <textarea name="text" required id="" cols="30" rows="10"></textarea>                    
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="upd_new">
+                <h5>Фотографии объявления</h5>
+                <p>Объявления с фото получают в среднем в 3-5 раз больше откликов. Первое изображение будет являть основным фото вашего объявления</p>
+                <div class="row form-group upload-photo">
+                    <div class="col-6 col-xl-2 col-lg-2">
+                        <label class="uploadPreview" for="file1">
+                            <input type="file" name="img1" id="file1" accept="image/*" multiple>
+                            <span class="img-uploader">
+                                <div class="pl">+</div>   
+                            </span>
+                        </label>
+                        <span class="remove-image">+</span>
+                    </div>
+                    <div class="col-6 col-xl-2 col-lg-2">
+                        <label class="uploadPreview" for="file2">
+                            <input type="file" name="img2" id="file2" accept="image/*">
+                            <span class="img-uploader">
+                                <div class="pl">+</div>   
+                            </span>
+                        </label>
+                        <span class="remove-image">+</span>
+                    </div>
+                    <div class="col-6 col-xl-2 col-lg-2">
+                        <label class="uploadPreview" for="file3">
+                            <input type="file" name="img3" id="file3" accept="image/*">
+                            <span class="img-uploader">
+                                <div class="pl">+</div>   
+                            </span>
+                        </label>
+                        <span class="remove-image">+</span>
+                    </div>
+                    <div class="col-6 col-xl-2 col-lg-2">
+                        <label class="uploadPreview" for="file4">
+                            <input type="file" name="img4" id="file4" accept="image/*">
+                            <span class="img-uploader">
+                                <div class="pl">+</div>   
+                            </span>
+                        </label>
+                        <span class="remove-image">+</span>
+                    </div>
+                    <div class="col-6 col-xl-2 col-lg-2">
+                        <label class="uploadPreview" for="file5">
+                            <input type="file" name="img5" id="file5" accept="image/*">
+                            <span class="img-uploader">
+                                <div class="pl">+</div>   
+                            </span>
+                        </label>
+                        <span class="remove-image">+</span>
+                    </div>
+                    <div class="col-6 col-xl-2 col-lg-2">
+                        <label class="uploadPreview" for="file6">
+                            <input type="file" name="img6" id="file6" accept="image/*">
+                            <span class="img-uploader">
+                                <div class="pl">+</div>   
+                            </span>
+                        </label>
+                        <span class="remove-image">+</span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+                <div class="upd_new">
+                    <h5>Контактные данные</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form_group">
+                                <label for="">Основной номер </label>
+                                <input type="text" name="title" disabled value="{{user.phone}}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form_group">
+                                <label for="">Доп.номер телефона </label>
+                                <input type="number" name="phone" placeholder="Доп.номер телефона">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+            <div class="axel">
+                <!-- <a href="#">Предпросмотр</a> -->
+                <button type="submit" class="btn" href="#">Разместить объявление</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+<script src="https://unpkg.com/imask"></script>
+<script>
+    var currencyMask = IMask(
+    document.getElementById('currency-mask'),
+    {
+        mask: 'num',
+        blocks: {
+            num: {
+                mask: Number,
+                thousandsSeparator: ' '
+            }
+        }
+    });
+    function getcateg(val,element = 'subcategory',checked = null){
+        let statefield = document.getElementById('statefield')
+        if (val == '61e25beb344a4c7321a0d3d3' || val == '61e25e3c82b1098eb236831c') {
+            statefield.style.display = 'block'
+        } else {
+            statefield.style.display = 'none'
+        }
+        fetch(`/api/getapi/${val}`)
+                .then(res => res.json())
+                .then(list => {
+                    let subsel = document.getElementById(element)
+                    subsel.innerHTML = '<option selected="" disabled="" value="">Выберите из списка</option>'
+                    list.forEach(item => {
+                        subsel.innerHTML += `
+                    <option value="${item._id}">${item.name}</option>
+                `
+                    })
+                    if (checked) {
+                        subsel.value = checked
+                    }
+                })
+    }
+
+    let newad = document.forms.newad
+    newad.addEventListener('submit',(e)=>{
+        let formData= new FormData(newad)
+        e.preventDefault()
+        fetch(`/ads/`,{
+            method:'post',
+            body: formData
+        }).then(res=>res.json())
+            .then(data =>{
+                console.log(data)
+                window.location.replace("http://zoopay.uz/profile")
+            })
+    })
+</script>

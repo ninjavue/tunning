@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,800&display=swap" rel="stylesheet">
+    <link href="/admin/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link href="/admin/plugins/perfectscroll/perfect-scrollbar.css" rel="stylesheet">
+    <link href="/admin/plugins/apexcharts/apexcharts.css" rel="stylesheet">
+
+    
+    <!-- Theme Styles -->
+    <link href="/admin/css/main.min.css" rel="stylesheet">
+    <link href="/admin/css/custom.css" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        {{>ahead}}
+        {{>side}}
+        <div class="page-content">
+            <div class="main-wrapper">
+                {{{body}}}
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin/plugins/jquery/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="/admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/admin/plugins/DataTables/datatables.min.js"></script>
+    <script src="/admin/plugins/perfectscroll/perfect-scrollbar.min.js"></script>
+    <script src="/admin/plugins/apexcharts/apexcharts.min.js"></script>
+    <script src="/admin/js/main.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            "use strict";
+
+            if ($('#zero-conf')){
+                $('#zero-conf').DataTable()
+
+            }
+        })
+    </script>
+</body>
+</html>

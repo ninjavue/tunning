@@ -1,0 +1,318 @@
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-center">
+                    <h5 class="card-title">{{title}}</h5>
+                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#newads">Добавить</button>
+                </div>
+                <div class="table-responsive">
+
+
+                <table class="table table-hover display" id="zero-conf"  style="width:100%">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">№</th>
+                            
+                            <th scope="col"></th>
+                            <th scope="col">Название</th>
+                            <th scope="col">Категория</th>
+                            <th scope="col">Стоимость</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each products}}
+                        <tr>
+                            <td>{{index}}</td>
+                            <th scope="col"><img src="/{{img}}" width="70" alt=""></th>
+                            <td>{{title}}</td>
+                            <td>{{category.name}}</td>
+                            <td>{{price}} {{currency}}</td>
+                            <td><span onclick="changeStatus(event.target,'{{_id}}')">{{{status}}}</span></td>
+                            <td class="text-right " style="white-space: nowrap">
+                                <button onclick="edit('{{_id}}')" data-bs-toggle="modal" data-bs-target="#upads" class="btn btn-warning ml-2">
+                                    <i class="fas fa-pen"></i></button>
+                                <a href="/product/delete/{{_id}}" 
+                                    onclick="return confirm('Вы уверены?')" 
+                                    class="ml-2 btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="newads" tabindex="-1" aria-labelledby="newads" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавить  обявление</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/ads/" name="newad" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="_csrf" value="{{csrf}}">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3 form-floating">
+                                <input type="text" name="title" class="form-control" id="floatingInputAds" placeholder="Заголовок объявления" required>
+                                <label for="floatingInputAds">Заголовок объявления </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3 form-floating">
+                                <input type="number" name="price" class="form-control" id="floatingInputAds7" placeholder="Стоимость">
+                                <label for="floatingInputAds7">Стоимость</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3 form-floating">
+                                <select class="form-select" name="category" id="floatingInputAds1" aria-label="Floating label select example" required="">
+                                    <option selected="" disabled="" value="">Выберите из списка</option>
+                                    {{#each category}}
+                                        <option value="{{_id}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Выберите из списка
+                                </div>
+                                <label for="floatingInputAds1">Категория</label>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="col-6">
+                            <div class="mb-3 form-floating">
+                                <select class="form-select" name="stock" id="floatingInputAds6" aria-label="Floating label select example" required="">
+                                    <option selected="" disabled="" value="">Выберите из списка</option>
+                                    <option value="0">Есть в наличие </option>
+                                    <option value="1">Нет в наличие</option>
+                                    <option value="2">На заказ</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Выберите из списка
+                                </div>
+                                <label for="floatingInputAds6">Наличие</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="mb-3 form-floating">
+                                <textarea name="text" class="form-control formheight" id="floatingInputAds9" cols="20" rows="10" placeholder="Описание"></textarea>
+                                <label for="floatingInputAds9">Описание</label>
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex align-items-center">
+                            <div class="mb-3 form-floating padding" >
+                                <label for="formFileMultiple1" class="form-label imgtop">Фото товара №1</label>
+                                <input class="form-control " name="img1" type="file" id="formFileMultiple1" >
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex align-items-center">
+                            <div class="mb-3 form-floating padding" >
+                                <label for="formFileMultiple2" class="form-label imgtop">Фото товара №2</label>
+                                <input class="form-control " name="img2" type="file" id="formFileMultiple2">
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex align-items-center">
+                            <div class="mb-3  form-floating padding" >
+                                <label for="formFileMultiple3" class="form-label imgtop">Фото товара №3</label>
+                                <input class="form-control " name="img3" type="file" id="formFileMultiple3">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="status" value="1" class="form-check-input" checked id="exampleCheck2">
+                        <label class="form-check-label" for="exampleCheck2">Активный</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="top" value="1" class="form-check-input" id="top">
+                        <label class="form-check-label" for="top">Топ продукт</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="upads" tabindex="-1" aria-labelledby="upads" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Изменить обявление</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/ads/save" method="post" name="upads">
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+                    <input type="hidden" name="_id" value="">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3 form-floating">
+                                <input type="text" name="title" class="form-control" id="floatingInputAds" placeholder="Заголовок объявления" required>
+                                <label for="floatingInputAds">Заголовок объявления </label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3 form-floating">
+                                <select class="form-select" name="category" id="floatingInputAds1" aria-label="Floating label select example" required="">
+                                    <option selected="" disabled="" value="">Выберите из списка</option>
+                                    {{#each category}}
+                                        <option value="{{_id}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Выберите из списка
+                                </div>
+                                <label for="floatingInputAds1">Категория</label>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="col-6">
+                            <div class="mb-3 form-floating">
+                                <select class="form-select" name="stock" id="floatingInputAds6" aria-label="Floating label select example" required="">
+                                    <option selected="" disabled="" value="">Выберите из списка</option>
+                                    <option value="0">Есть в наличие </option>
+                                    <option value="1">Нет в наличие</option>
+                                    <option value="2">На заказ</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Выберите из списка
+                                </div>
+                                <label for="floatingInputAds6">Наличие</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3 form-floating">
+                                <input type="number" name="price" class="form-control" id="floatingInputAds7" placeholder="Стоимость">
+                                <label for="floatingInputAds7">Стоимость</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3 form-floating">
+                                <textarea name="text" class="form-control formheight" id="floatingInputAds9" cols="20" rows="10" placeholder="Описание"></textarea>
+                                <label for="floatingInputAds9">Описание</label>
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex align-items-center">
+                            <img src="" alt="" id="upimg1" width="50">
+                            <div class="mb-3 form-floating padding" >
+                                <label for="formFileMultiple1" class="form-label imgtop">Фото товара №1</label>
+                                <input class="form-control " name="img1" type="file" id="formFileMultiple1" >
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex align-items-center">
+                            <img src="" alt="" id="upimg2" width="50">
+                            <div class="mb-3 form-floating padding" >
+                                <label for="formFileMultiple2" class="form-label imgtop">Фото товара №2</label>
+                                <input class="form-control " name="img2" type="file" id="formFileMultiple2">
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex align-items-center">
+                            <img src="" alt="" id="upimg3" width="50">
+                            <div class="mb-3  form-floating padding" >
+                                <label for="formFileMultiple3" class="form-label imgtop">Фото товара №3</label>
+                                <input class="form-control " name="img3" type="file" id="formFileMultiple3">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="status" value="1" class="form-check-input" id="floatingInputsub7">
+                        <label class="form-check-label" for="floatingInputsub7">Активный</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="top" value="1" class="form-check-input" id="topup">
+                        <label class="form-check-label" for="topup">Топ продукт</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<style>
+    .form-label.imgtop {
+        top: -15px;
+    }
+    .form-control.formheight {
+        min-height: calc(7.5em + 0.75rem + 2px)
+    }
+    
+</style>
+<script src="/admin/js/data.js"></script>
+<script>
+
+    function changeStatus(tar,_id){
+        fetch(`/ads/changestatus/${_id}`)
+        .then(res => res.json())
+        .then(res => {
+            console.log(tar)
+            tar.innerHTML = res
+        })
+    }
+
+
+    let newad = document.forms.newad
+    newad.addEventListener('submit',(e)=>{
+        let formData= new FormData(newad)
+        e.preventDefault()
+        fetch(`/product/`,{
+            method:'post',
+            body: formData
+        }).then(res=>res.json())
+        .then(data =>{
+            console.log(data)
+            location.reload()
+        })
+    })
+    let upForm = document.forms.upads
+    upForm.addEventListener('submit',(e)=>{
+        let formData= new FormData(upForm)
+        e.preventDefault()
+        fetch(`/product/save`,{
+            method:'post',
+            body: formData
+        }).then(res=>res.json())
+        .then(data =>{
+            console.log(data)
+            location.reload()
+        }).catch(err => console.log(err))
+    })
+
+
+
+
+    const edit = (id) => {
+        fetch(`/product/get/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            let ads = data
+            upForm._id.value = id
+            upForm.title.value = ads.title
+            upForm.category.value = ads.category || ''
+
+            upForm.stock.value = ads.stock
+            upForm.price.value = ads.price
+            upForm.text.value = ads.text
+            ads.img.forEach((image,index) => {
+                document.getElementById(`upimg${index+1}`).setAttribute('src',`/${image}`)
+            })
+            upForm.status.checked = ads.status == 1 ? true : false
+            upForm.top.checked = ads.top == 1 ? true : false
+        }).catch(e=>console.error(e))
+    }
+</script>

@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-center">
+                    <h5 class="card-title">{{title}}</h5>
+                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#newsubcat">Добавить</button>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Имя</th>
+                            <th scope="col">Номер телефона</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each users}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td>{{phone}}</td>
+                            <td>{{{status}}}</td>
+                            <td class="text-right">
+                                <button onclick="edit('{{_id}}')" data-bs-toggle="modal" data-bs-target="#upsubcate" class="btn btn-warning ml-2">
+                                    <i class="fas fa-pen"></i></button>
+                                <a href="/users/delete/{{_id}}" 
+                                    onclick="return confirm('Вы уверены?')" 
+                                    class="ml-2 btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="newsubcat" tabindex="-1" aria-labelledby="newsubcat" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавить субкатегории</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/users/" method="post">
+                    <input type="hidden" name="_csrf" value="{{csrf}}">
+                    <div class="mb-3 form-floating">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Название категории" required>
+                        <label for="name">Имя</label>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input type="number" name="phone" class="form-control" id="phone" placeholder="Название категории" required>
+                        <label for="phone">Номер телефон (минимум 9 цифр)</label>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input type="password" name="password" class="form-control" id="pass" placeholder="Название категории" required>
+                        <label for="pass">Пароль</label>
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="status" value="1" class="form-check-input" checked id="statu">
+                        <label class="form-check-label" for="statu">Активный</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="upsubcate" tabindex="-1" aria-labelledby="upsubcat" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Изменить субкатегории</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/users/save" method="post" name="upsubcate">
+                    <input type="hidden" name="_id" value="">
+                    <div class="mb-3 form-floating">
+                        <input type="text" name="name" class="form-control" id="name1" placeholder="Имя" required>
+                        <label for="name1">Имя</label>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input type="number" name="phone" class="form-control" id="phone11" placeholder="Номер телефон (минимум 9 цифр)" required>
+                        <label for="phone11">Номер телефон (минимум 9 цифр)</label>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input type="password" name="password" class="form-control" id="pass11" placeholder="Пароль" required>
+                        <label for="pass11">Пароль</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="status" value="1" class="form-check-input" id="statuuu">
+                        <label class="form-check-label" for="statuuu">Активный</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    let upForm = document.forms.upsubcate
+    const edit = (id) => {
+        fetch(`/users/u/${id}`)
+        .then(res => res.json())
+        .then(users => {
+            upForm.name.value = users.name
+            upForm.phone.value = users.phone
+            upForm._id.value = id 
+            upForm.status.checked = users.status == 1 ? true : false
+        }).catch(e=>console.error(e))
+    }
+</script>
